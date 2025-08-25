@@ -53,6 +53,8 @@
 		4CFFD61A2E5CE0E500E914E3 /* SpidersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFFD6142E5CE0E500E914E3 /* SpidersViewModel.swift */; };
 		4CFFD61B2E5CE0E500E914E3 /* ChallengesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFFD6102E5CE0E500E914E3 /* ChallengesViewModel.swift */; };
 		4CFFD6352E5CEF3C00E914E3 /* SpiderRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFFD6342E5CEF3C00E914E3 /* SpiderRegistrationView.swift */; };
+		4CFFD6372E5CF4E000E914E3 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFFD6362E5CF4E000E914E3 /* ImagePicker.swift */; };
+		4CFFD6392E5CF4E700E914E3 /* ImageUploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFFD6382E5CF4E700E914E3 /* ImageUploadService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +98,8 @@
 		4CFFD6132E5CE0E500E914E3 /* ServiceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceContainer.swift; sourceTree = "<group>"; };
 		4CFFD6142E5CE0E500E914E3 /* SpidersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpidersViewModel.swift; sourceTree = "<group>"; };
 		4CFFD6342E5CEF3C00E914E3 /* SpiderRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiderRegistrationView.swift; sourceTree = "<group>"; };
+		4CFFD6362E5CF4E000E914E3 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		4CFFD6382E5CF4E700E914E3 /* ImageUploadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -215,6 +219,8 @@
 		1410E3E9299788EB005E4FBF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4CFFD6382E5CF4E700E914E3 /* ImageUploadService.swift */,
+				4CFFD6362E5CF4E000E914E3 /* ImagePicker.swift */,
 				1410E3EA299788F7005E4FBF /* Extensions.swift */,
 			);
 			path = Utils;
@@ -347,6 +353,8 @@
 				1410E3BB2997811B005E4FBF /* ContentView.swift in Sources */,
 				147A32782D7BEB7600DD45A5 /* LoadingView.swift in Sources */,
 				4CFFD6042E5CE0A100E914E3 /* User.swift in Sources */,
+				4CFFD6392E5CF4E700E914E3 /* ImageUploadService.swift in Sources */,
+				4CFFD6372E5CF4E000E914E3 /* ImagePicker.swift in Sources */,
 				4CFFD6052E5CE0A100E914E3 /* Fight.swift in Sources */,
 				4CFFD6062E5CE0A100E914E3 /* UserRepository.swift in Sources */,
 				4CFFD6072E5CE0A100E914E3 /* Challenge.swift in Sources */,

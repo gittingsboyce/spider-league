@@ -52,7 +52,7 @@ class ImageUploadService: ObservableObject {
             }
             
             // Wait for upload to complete
-            let _ = try await uploadTask.value
+            try await uploadTask
             
             // Get download URL
             let downloadURL = try await imageRef.downloadURL()

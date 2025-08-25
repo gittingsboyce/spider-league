@@ -1,13 +1,16 @@
 import SwiftUI
+import UIKit
 
 // MARK: - Spider Registration View
 struct SpiderRegistrationView: View {
     @Environment(\.dismiss) private var dismiss
+    @StateObject private var imagePicker = ImagePicker()
     
     // Form state
     @State private var spiderName = ""
     @State private var spiderDescription = ""
-    
+    @State private var showingImageSourceAlert = false
+
     // Callback for when spider is created
     let onSpiderCreated: (Spider) -> Void
     
@@ -25,21 +28,42 @@ struct SpiderRegistrationView: View {
                         .lineLimit(3...6)
                 }
                 
-                // Placeholder for image functionality
+                                // Image Section
                 Section("Spider Photo") {
                     VStack(spacing: 16) {
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.gray.opacity(0.1))
-                            .frame(height: 200)
-                            .overlay(
-                                VStack(spacing: 8) {
-                                    Image(systemName: "camera.fill")
-                                        .font(.system(size: 40))
-                                        .foregroundColor(.gray)
-                                    Text("Image functionality coming soon")
-                                        .foregroundColor(.gray)
-                                }
-                            )
+                        if let selectedImage = imagePicker.selectedImage {
+                            Image(uiImage: selectedImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(maxHeight: 200)
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                                )
+                        } else {
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color.gray.opacity(0.1))
+                                .frame(height: 200)
+                                .overlay(
+                                    VStack(spacing: 8) {
+                                        Image(systemName: "camera.fill")
+                                            .font(.system(size: 40))
+                                            .foregroundColor(.gray)
+                                        Text("Tap to add photo")
+                                            .foregroundColor(.gray)
+                                    }
+                                )
+                        }
+                        
+                        Button(action: { showingImageSourceAlert = true }) {
+                            HStack {
+                                Image(systemName: "camera.fill")
+                                Text(imagePicker.selectedImage == nil ? "Add Photo" : "Change Photo")
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+                        .buttonStyle(.borderedProminent)
                     }
                     .padding(.vertical, 8)
                 }
@@ -57,8 +81,22 @@ struct SpiderRegistrationView: View {
                     Button("Save") {
                         createSpider()
                     }
-                    .disabled(spiderName.isEmpty)
+                    .disabled(spiderName.isEmpty || imagePicker.selectedImage == nil)
                 }
+            }
+            .alert("Add Photo", isPresented: $showingImageSourceAlert) {
+                Button("Camera") {
+                    imagePicker.presentCamera()
+                }
+                Button("Photo Library") {
+                    imagePicker.presentPhotoLibrary()
+                }
+                Button("Cancel", role: .cancel) { }
+            } message: {
+                Text("Choose how you want to add a photo of your spider")
+            }
+            .sheet(isPresented: $imagePicker.isImagePickerPresented) {
+                ImagePickerSheet(imagePicker: imagePicker)
             }
         }
     }
@@ -91,6 +129,19 @@ struct SpiderRegistrationView: View {
         // TODO: Get from authentication service
         // For now, return a placeholder
         return "current_user_id"
+    }
+}
+
+// MARK: - Image Picker Sheet
+struct ImagePickerSheet: UIViewControllerRepresentable {
+    @ObservedObject var imagePicker: ImagePicker
+    
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        return imagePicker.createImagePickerController()
+    }
+    
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
+        // No updates needed
     }
 }
 

@@ -215,15 +215,32 @@ struct SpiderCard: View {
     var body: some View {
         Button(action: onTap) {
             VStack(spacing: 12) {
-                // Spider Image Placeholder
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color(.systemGray5))
+                // Spider Image
+                if !spider.imageUrl.isEmpty {
+                    AsyncImage(url: URL(string: spider.imageUrl)) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    } placeholder: {
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color(.systemGray5))
+                            .overlay(
+                                ProgressView()
+                                    .progressViewStyle(.circular)
+                            )
+                    }
                     .frame(height: 120)
-                    .overlay(
-                        Image(systemName: "spider.fill")
-                            .font(.system(size: 40))
-                            .foregroundColor(.orange)
-                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                } else {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color(.systemGray5))
+                        .frame(height: 120)
+                        .overlay(
+                            Image(systemName: "spider.fill")
+                                .font(.system(size: 40))
+                                .foregroundColor(.orange)
+                        )
+                }
                 
                 VStack(spacing: 8) {
                     Text(spider.name)
