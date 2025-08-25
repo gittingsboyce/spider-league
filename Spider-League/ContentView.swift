@@ -22,8 +22,8 @@ struct ContentView: View {
 			Group {
 				if authViewModel.state == .signedIn ||
 					(isPersistedLogin && authViewModel.currentUser != nil) {
-					// User is authenticated, show the Home view
-					Home()
+					// User is authenticated, show the main app with tabs
+					MainTabView()
 				} else {
 					// User is not authenticated, show the Login view
 					Login()

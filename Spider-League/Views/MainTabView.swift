@@ -1,5 +1,7 @@
 import SwiftUI
 
+// Import our custom views
+
 // MARK: - Main Tab View
 struct MainTabView: View {
     
@@ -10,7 +12,7 @@ struct MainTabView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             // Home Tab
-            Text("Home View")
+            HomeView()
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("Home")
@@ -18,7 +20,7 @@ struct MainTabView: View {
                 .tag(0)
             
             // Spiders Tab
-            Text("Spiders View")
+            SpidersView()
                 .tabItem {
                     Image(systemName: "spider.fill")
                     Text("Spiders")
@@ -26,7 +28,7 @@ struct MainTabView: View {
                 .tag(1)
             
             // Challenges Tab
-            Text("Challenges View")
+            ChallengesView()
                 .tabItem {
                     Image(systemName: "sword.and.shield.fill")
                     Text("Challenges")
@@ -34,7 +36,7 @@ struct MainTabView: View {
                 .tag(2)
             
             // Profile Tab
-            Text("Profile View")
+            ProfileView()
                 .tabItem {
                     Image(systemName: "person.fill")
                     Text("Profile")
