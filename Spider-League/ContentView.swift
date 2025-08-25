@@ -1,8 +1,8 @@
 //
 //  ContentView.swift
-//  iOS-SwiftUI-Firebase-Login-Template
+//  Spider League
 //
-//  Created by Tanner Maasen on 2/11/23.
+//  Created by Gittings Boyce on 2/11/23.
 //
 
 import SwiftUI

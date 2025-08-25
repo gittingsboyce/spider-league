@@ -1,6 +1,8 @@
 //
 //  Login.swift
+//  Spider League
 //
+//  Created by Gittings Boyce on 2/11/23.
 //
 
 import SwiftUI
@@ -27,7 +29,7 @@ struct Login: View {
 					.scaledToFit()
 					.frame(width: 80, height: 80)
 				
-				Text("Login with Firebase Example")
+				Text("Spider League")
 					.foregroundColor(.Orange)
 					.font(.system(size: 28))
 					.multilineTextAlignment(.center)

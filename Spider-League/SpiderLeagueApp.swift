@@ -1,8 +1,8 @@
 //
-//  iOS_SwiftUI_Firebase_Login_TemplateApp.swift
-//  iOS-SwiftUI-Firebase-Login-Template
+//  SpiderLeagueApp.swift
+//  Spider League
 //
-//  Created by Tanner Maasen on 2/11/23.
+//  Created by Gittings Boyce on 2/11/23.
 //
 
 import SwiftUI
@@ -10,7 +10,7 @@ import Firebase
 import GoogleSignIn
 
 @main
-struct iOS_SwiftUI_Firebase_Login_TemplateApp: App {
+struct SpiderLeagueApp: App {
 	// Create the auth repository
 	@StateObject var authViewModel = AuthenticationViewModel(
 		authRepository: FirebaseAuthRepository()

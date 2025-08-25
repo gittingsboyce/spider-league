@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1410E3B92997811B005E4FBF /* iOS_SwiftUI_Firebase_Login_TemplateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1410E3B82997811B005E4FBF /* iOS_SwiftUI_Firebase_Login_TemplateApp.swift */; };
+		1410E3B92997811B005E4FBF /* SpiderLeagueApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1410E3B82997811B005E4FBF /* SpiderLeagueApp.swift */; };
 		1410E3BB2997811B005E4FBF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1410E3BA2997811B005E4FBF /* ContentView.swift */; };
 		1410E3C12997811D005E4FBF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1410E3C02997811D005E4FBF /* Preview Assets.xcassets */; };
 		1410E3CD299781C7005E4FBF /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1410E3CC299781C7005E4FBF /* AuthenticationViewModel.swift */; };
@@ -30,10 +30,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1410E3B52997811B005E4FBF /* iOS-SwiftUI-Firebase-Login-Template.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-SwiftUI-Firebase-Login-Template.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1410E3B82997811B005E4FBF /* iOS_SwiftUI_Firebase_Login_TemplateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_SwiftUI_Firebase_Login_TemplateApp.swift; sourceTree = "<group>"; };
+		1410E3B52997811B005E4FBF /* Spider-League.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Spider-League.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1410E3B82997811B005E4FBF /* SpiderLeagueApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiderLeagueApp.swift; sourceTree = "<group>"; };
 		1410E3BA2997811B005E4FBF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		1410E3BE2997811D005E4FBF /* iOS_SwiftUI_Firebase_Login_Template.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS_SwiftUI_Firebase_Login_Template.entitlements; sourceTree = "<group>"; };
+		1410E3BE2997811D005E4FBF /* SpiderLeague.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpiderLeague.entitlements; sourceTree = "<group>"; };
 		1410E3C02997811D005E4FBF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1410E3CC299781C7005E4FBF /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		1410E3D0299781E0005E4FBF /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				14F252F0299C133600DAC3B8 /* .gitignore */,
-				1410E3B72997811B005E4FBF /* iOS-SwiftUI-Firebase-Login-Template */,
+				1410E3B72997811B005E4FBF /* Spider-League */,
 				1410E3B62997811B005E4FBF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -82,19 +82,19 @@
 		1410E3B62997811B005E4FBF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1410E3B52997811B005E4FBF /* iOS-SwiftUI-Firebase-Login-Template.app */,
+				1410E3B52997811B005E4FBF /* Spider-League.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1410E3B72997811B005E4FBF /* iOS-SwiftUI-Firebase-Login-Template */ = {
+		1410E3B72997811B005E4FBF /* Spider-League */ = {
 			isa = PBXGroup;
 			children = (
-				1410E3BE2997811D005E4FBF /* iOS_SwiftUI_Firebase_Login_Template.entitlements */,
+				1410E3BE2997811D005E4FBF /* SpiderLeague.entitlements */,
 				1428244B2D7BF8E2006E3E09 /* GoogleService-Info.plist */,
 				147A326E2D7B3E2400DD45A5 /* Info.plist */,
 				1410E3BA2997811B005E4FBF /* ContentView.swift */,
-				1410E3B82997811B005E4FBF /* iOS_SwiftUI_Firebase_Login_TemplateApp.swift */,
+				1410E3B82997811B005E4FBF /* SpiderLeagueApp.swift */,
 				142FD6832997F94F00F42E77 /* Assets.xcassets */,
 				1410E3E32997887D005E4FBF /* Enums */,
 				1410E3BF2997811D005E4FBF /* Preview Content */,
@@ -103,7 +103,7 @@
 				1410E3C929978171005E4FBF /* ViewModels */,
 				1410E3C729978161005E4FBF /* Views */,
 			);
-			path = "iOS-SwiftUI-Firebase-Login-Template";
+			path = "Spider-League";
 			sourceTree = "<group>";
 		};
 		1410E3BF2997811D005E4FBF /* Preview Content */ = {
@@ -162,9 +162,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1410E3B42997811B005E4FBF /* iOS-SwiftUI-Firebase-Login-Template */ = {
+		1410E3B42997811B005E4FBF /* Spider-League */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1410E3C42997811D005E4FBF /* Build configuration list for PBXNativeTarget "iOS-SwiftUI-Firebase-Login-Template" */;
+			buildConfigurationList = 1410E3C42997811D005E4FBF /* Build configuration list for PBXNativeTarget "Spider-League" */;
 			buildPhases = (
 				1410E3B12997811B005E4FBF /* Sources */,
 				1410E3B22997811B005E4FBF /* Frameworks */,
@@ -177,7 +177,7 @@
 			fileSystemSynchronizedGroups = (
 				147A326F2D7BE81900DD45A5 /* Repositories */,
 			);
-			name = "iOS-SwiftUI-Firebase-Login-Template";
+			name = "Spider-League";
 			packageProductDependencies = (
 				147A32632D7B361F00DD45A5 /* FirebaseAppCheck */,
 				147A32652D7B361F00DD45A5 /* FirebaseAuth */,
@@ -185,8 +185,8 @@
 				147A326A2D7B364F00DD45A5 /* GoogleSignIn */,
 				147A326C2D7B364F00DD45A5 /* GoogleSignInSwift */,
 			);
-			productName = "iOS-SwiftUI-Firebase-Login-Template";
-			productReference = 1410E3B52997811B005E4FBF /* iOS-SwiftUI-Firebase-Login-Template.app */;
+			productName = "Spider-League";
+			productReference = 1410E3B52997811B005E4FBF /* Spider-League.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -197,14 +197,14 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1400;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					1410E3B42997811B005E4FBF = {
 						CreatedOnToolsVersion = 14.0;
 					};
 				};
 			};
-			buildConfigurationList = 1410E3B02997811B005E4FBF /* Build configuration list for PBXProject "iOS-SwiftUI-Firebase-Login-Template" */;
+			buildConfigurationList = 1410E3B02997811B005E4FBF /* Build configuration list for PBXProject "Spider-League" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -221,7 +221,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1410E3B42997811B005E4FBF /* iOS-SwiftUI-Firebase-Login-Template */,
+				1410E3B42997811B005E4FBF /* Spider-League */,
 			);
 		};
 /* End PBXProject section */
@@ -252,7 +252,7 @@
 				1410E3BB2997811B005E4FBF /* ContentView.swift in Sources */,
 				147A32782D7BEB7600DD45A5 /* LoadingView.swift in Sources */,
 				147A32742D7BE85C00DD45A5 /* AuthError.swift in Sources */,
-				1410E3B92997811B005E4FBF /* iOS_SwiftUI_Firebase_Login_TemplateApp.swift in Sources */,
+				1410E3B92997811B005E4FBF /* SpiderLeagueApp.swift in Sources */,
 				1410E3D1299781E0005E4FBF /* Login.swift in Sources */,
 				1410E3E529978887005E4FBF /* LoginOptions.swift in Sources */,
 				1410E3D3299781F3005E4FBF /* Home.swift in Sources */,
@@ -295,9 +295,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -353,9 +355,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -376,15 +380,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "iOS-SwiftUI-Firebase-Login-Template/iOS_SwiftUI_Firebase_Login_Template.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Spider-League/SpiderLeague.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"iOS-SwiftUI-Firebase-Login-Template/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Spider-League/Preview Content\"";
+				DEVELOPMENT_TEAM = 2K53CJ67V2;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "iOS-SwiftUI-Firebase-Login-Template/Info.plist";
+				INFOPLIST_FILE = "Spider-League/Info.plist";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -400,6 +406,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gryffin-ventures.spider-league";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
@@ -417,15 +424,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "iOS-SwiftUI-Firebase-Login-Template/iOS_SwiftUI_Firebase_Login_Template.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Spider-League/SpiderLeague.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"iOS-SwiftUI-Firebase-Login-Template/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Spider-League/Preview Content\"";
+				DEVELOPMENT_TEAM = 2K53CJ67V2;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "iOS-SwiftUI-Firebase-Login-Template/Info.plist";
+				INFOPLIST_FILE = "Spider-League/Info.plist";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -441,6 +450,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gryffin-ventures.spider-league";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
@@ -456,7 +466,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1410E3B02997811B005E4FBF /* Build configuration list for PBXProject "iOS-SwiftUI-Firebase-Login-Template" */ = {
+		1410E3B02997811B005E4FBF /* Build configuration list for PBXProject "Spider-League" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1410E3C22997811D005E4FBF /* Debug */,
@@ -465,7 +475,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1410E3C42997811D005E4FBF /* Build configuration list for PBXNativeTarget "iOS-SwiftUI-Firebase-Login-Template" */ = {
+		1410E3C42997811D005E4FBF /* Build configuration list for PBXNativeTarget "Spider-League" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1410E3C52997811D005E4FBF /* Debug */,

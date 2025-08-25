@@ -1,6 +1,8 @@
 //
 //  Home.swift
+//  Spider League
 //
+//  Created by Gittings Boyce on 2/11/23.
 //
 
 import SwiftUI

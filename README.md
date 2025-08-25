@@ -2,7 +2,7 @@
   <img src="/assets/Logo.png" width="50%"/>
 </p>
 
-# iOS SwiftUI Firebase Auth Template
+# Spider League - iOS SwiftUI Firebase Auth Template
 
 A modern, well-architected template for implementing Firebase Authentication in SwiftUI apps. This template includes support for Email/Password, Google, and Apple Sign-In authentication methods.
 
@@ -107,7 +107,7 @@ The project follows a clean architecture approach:
 
 ## Usage
 
-This template provides a ready-to-use authentication system. The main components are:
+This  provides a ready-to-use authentication system. The main components are:
 
 - `AuthRepository`: Handles all Firebase authentication operations
 - `AuthenticationViewModel`: Manages authentication state and provides methods for views
@@ -182,4 +182,4 @@ Special thanks goes out to Joseph Hinkle and his repo https://github.com/joehink
 
 ## Contact
 
-If you have any questions or feedback, please open an issue in the repository.
+If you have any questions or feedback, please open an issue in the repository or contact Gittings Boyce.

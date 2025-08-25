@@ -1,6 +1,8 @@
 //
 //  Extensions.swift
+//  Spider League
 //
+//  Created by Gittings Boyce on 3/7/25.
 //
 
 import SwiftUI

@@ -1,8 +1,8 @@
 //
 //  SignInState.swift
-//  iOS-SwiftUI-Firebase-Login-Template
+//  Spider League
 //
-//  Created by Tanner Maasen on 3/7/25.
+//  Created by Gittings Boyce on 3/7/25.
 //
 
 
