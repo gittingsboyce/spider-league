@@ -1,9 +1,12 @@
 import SwiftUI
 
+// Import our custom components
+
 // MARK: - Spiders View
 struct SpidersView: View {
     
     // MARK: - Properties
+    private let serviceContainer: ServiceContainerProtocol = ServiceContainer.shared
     @State private var userSpiders: [Spider] = []
     @State private var isLoading = false
     @State private var showingAddSpider = false
@@ -37,7 +40,12 @@ struct SpidersView: View {
                 await loadSpiders()
             }
             .sheet(isPresented: $showingAddSpider) {
-                AddSpiderView()
+                SpiderRegistrationView { spider in
+                    // Add the new spider to the collection
+                    Task {
+                        await addSpider(spider)
+                    }
+                }
             }
             .sheet(item: $selectedSpider) { spider in
                 SpiderDetailView(spider: spider)
@@ -139,9 +147,9 @@ struct SpidersView: View {
                 )
                 
                 StatCard(
-                    title: "Avg Score",
-                    value: String(format: "%.1f", averageDeadlinessScore),
-                    icon: "chart.bar.fill",
+                    title: "Ready to Fight",
+                    value: "\(userSpiders.filter { $0.canBeUsedInFight }.count)",
+                    icon: "sword.fill",
                     color: .orange
                 )
             }
@@ -149,40 +157,53 @@ struct SpidersView: View {
         }
     }
     
-    // MARK: - Computed Properties
-    private var averageDeadlinessScore: Double {
-        guard !userSpiders.isEmpty else { return 0.0 }
-        let total = userSpiders.reduce(0.0) { $0 + $1.deadlinessScore }
-        return total / Double(userSpiders.count)
-    }
+
     
     // MARK: - Actions
     private func loadSpiders() async {
         isLoading = true
-        // TODO: Load spiders from SpiderRepository
-        try? await Task.sleep(nanoseconds: 1_000_000_000) // Simulate network delay
         
-        // Mock data for now
-        userSpiders = [
-            Spider(
-                userId: "user1",
-                species: "Black Widow",
-                deadlinessScore: 85.0,
-                imageUrl: "",
-                imageMetadata: ImageMetadata(width: 800, height: 600, fileSize: 1024),
-                geminiAnalysis: GeminiAnalysis(species: "Black Widow", confidence: 0.95)
-            ),
-            Spider(
-                userId: "user1",
-                species: "Brown Recluse",
-                deadlinessScore: 75.0,
-                imageUrl: "",
-                imageMetadata: ImageMetadata(width: 800, height: 600, fileSize: 1024),
-                geminiAnalysis: GeminiAnalysis(species: "Brown Recluse", confidence: 0.92)
-            )
-        ]
-        
-        isLoading = false
+        do {
+            // Load spiders from Firebase
+            let spiders = try await serviceContainer.spiderRepository.getUserSpiders(userId: getCurrentUserId())
+            
+            await MainActor.run {
+                self.userSpiders = spiders
+                self.isLoading = false
+            }
+        } catch {
+            print("Failed to load spiders from Firebase: \(error)")
+            await MainActor.run {
+                self.userSpiders = []
+                self.isLoading = false
+            }
+        }
+    }
+    
+    private func addSpider(_ spider: Spider) async {
+        do {
+            // Save spider to Firebase first
+            let savedSpider = try await serviceContainer.spiderRepository.createSpider(spider)
+            
+            // Add the saved spider to the local collection
+            await MainActor.run {
+                userSpiders.append(savedSpider)
+            }
+        } catch {
+            print("Failed to save spider to Firebase: \(error)")
+            // Still add to local collection for now
+            await MainActor.run {
+                userSpiders.append(spider)
+            }
+        }
+    }
+    
+    // MARK: - Private Methods
+    
+    private func getCurrentUserId() -> String {
+        // TODO: Get from authentication service
+        // For now, return a placeholder
+        return "current_user_id"
     }
 }
 
@@ -205,22 +226,19 @@ struct SpiderCard: View {
                     )
                 
                 VStack(spacing: 8) {
-                    Text(spider.species)
+                    Text(spider.name)
                         .font(.headline)
                         .fontWeight(.semibold)
                         .foregroundColor(.primary)
                         .lineLimit(2)
                         .multilineTextAlignment(.center)
                     
-                    HStack {
-                        Text("Score:")
+                    if let description = spider.description {
+                        Text(description)
                             .font(.caption)
                             .foregroundColor(.secondary)
-                        
-                        Text(String(format: "%.0f", spider.deadlinessScore))
-                            .font(.subheadline)
-                            .fontWeight(.bold)
-                            .foregroundColor(.orange)
+                            .lineLimit(2)
+                            .multilineTextAlignment(.center)
                     }
                     
                     // Status Indicator
@@ -274,51 +292,7 @@ struct StatCard: View {
     }
 }
 
-// MARK: - Add Spider View (Placeholder)
-struct AddSpiderView: View {
-    @Environment(\.dismiss) private var dismiss
-    
-    var body: some View {
-        NavigationView {
-            VStack(spacing: 24) {
-                Image(systemName: "camera.fill")
-                    .font(.system(size: 80))
-                    .foregroundColor(.orange)
-                
-                Text("Register New Spider")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                
-                Text("Take a photo of a spider to register it in your collection")
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
-                
-                Button("Take Photo") {
-                    // TODO: Implement camera functionality
-                }
-                .font(.headline)
-                .foregroundColor(.white)
-                .padding()
-                .background(Color.orange)
-                .cornerRadius(12)
-                
-                Spacer()
-            }
-            .padding()
-            .navigationTitle("Add Spider")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Cancel") {
-                        dismiss()
-                    }
-                }
-            }
-        }
-    }
-}
+
 
 // MARK: - Spider Detail View (Placeholder)
 struct SpiderDetailView: View {
@@ -340,13 +314,16 @@ struct SpiderDetailView: View {
                         )
                     
                     VStack(spacing: 16) {
-                        Text(spider.species)
+                        Text(spider.name)
                             .font(.largeTitle)
                             .fontWeight(.bold)
                         
-                        Text("Deadliness Score: \(String(format: "%.0f", spider.deadlinessScore))")
-                            .font(.title2)
-                            .foregroundColor(.orange)
+                        if let description = spider.description {
+                            Text(description)
+                                .font(.body)
+                                .foregroundColor(.secondary)
+                                .multilineTextAlignment(.center)
+                        }
                         
                         // Additional details would go here
                         Text("Registered: \(spider.createdAt, style: .date)")

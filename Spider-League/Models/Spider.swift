@@ -5,26 +5,30 @@ import CoreLocation
 struct Spider: Identifiable, Codable {
     let id: String
     let userId: String
-    let species: String
-    let deadlinessScore: Double
+    let name: String
+    let description: String?
+    let species: String?
+    let deadlinessScore: Double?
     let imageUrl: String
     let imageMetadata: ImageMetadata
-    let geminiAnalysis: GeminiAnalysis
+    let geminiAnalysis: GeminiAnalysis?
     let createdAt: Date
     var lastUsedInFight: Date?
     var isActive: Bool
     
-    init(userId: String, species: String, deadlinessScore: Double, imageUrl: String, imageMetadata: ImageMetadata, geminiAnalysis: GeminiAnalysis) {
-        self.id = UUID().uuidString
+    init(id: String, userId: String, name: String, description: String?, imageUrl: String, imageMetadata: ImageMetadata, geminiAnalysis: GeminiAnalysis?, isActive: Bool = true, lastUsed: Date? = nil, createdAt: Date = Date()) {
+        self.id = id
         self.userId = userId
-        self.species = species
-        self.deadlinessScore = deadlinessScore
+        self.name = name
+        self.description = description
+        self.species = nil // Will be filled in by AI analysis
+        self.deadlinessScore = nil // Will be calculated after AI analysis
         self.imageUrl = imageUrl
         self.imageMetadata = imageMetadata
         self.geminiAnalysis = geminiAnalysis
-        self.createdAt = Date()
-        self.lastUsedInFight = nil
-        self.isActive = true
+        self.createdAt = createdAt
+        self.lastUsedInFight = lastUsed
+        self.isActive = isActive
     }
     
     // Computed properties
@@ -88,6 +92,8 @@ extension Spider {
     enum CodingKeys: String, CodingKey {
         case id
         case userId
+        case name
+        case description
         case species
         case deadlinessScore
         case imageUrl
@@ -103,11 +109,13 @@ extension Spider {
         
         id = try container.decode(String.self, forKey: .id)
         userId = try container.decode(String.self, forKey: .userId)
-        species = try container.decode(String.self, forKey: .species)
-        deadlinessScore = try container.decode(Double.self, forKey: .deadlinessScore)
+        name = try container.decode(String.self, forKey: .name)
+        description = try container.decodeIfPresent(String.self, forKey: .description)
+        species = try container.decodeIfPresent(String.self, forKey: .species)
+        deadlinessScore = try container.decodeIfPresent(Double.self, forKey: .deadlinessScore)
         imageUrl = try container.decode(String.self, forKey: .imageUrl)
         imageMetadata = try container.decode(ImageMetadata.self, forKey: .imageMetadata)
-        geminiAnalysis = try container.decode(GeminiAnalysis.self, forKey: .geminiAnalysis)
+        geminiAnalysis = try container.decodeIfPresent(GeminiAnalysis.self, forKey: .geminiAnalysis)
         
         // Handle Firestore Timestamps
         let createdAtTimestamp = try container.decode(Timestamp.self, forKey: .createdAt)
@@ -127,19 +135,19 @@ extension Spider {
         
         try container.encode(id, forKey: .id)
         try container.encode(userId, forKey: .userId)
-        try container.encode(species, forKey: .species)
-        try container.encode(deadlinessScore, forKey: .deadlinessScore)
+        try container.encode(name, forKey: .name)
+        try container.encodeIfPresent(description, forKey: .description)
+        try container.encodeIfPresent(species, forKey: .species)
+        try container.encodeIfPresent(deadlinessScore, forKey: .deadlinessScore)
         try container.encode(imageUrl, forKey: .imageUrl)
         try container.encode(imageMetadata, forKey: .imageMetadata)
-        try container.encode(geminiAnalysis, forKey: .geminiAnalysis)
+        try container.encodeIfPresent(geminiAnalysis, forKey: .geminiAnalysis)
         try container.encode(Timestamp(date: createdAt), forKey: .createdAt)
-        
-        if let lastUsedInFight = lastUsedInFight {
-            try container.encode(Timestamp(date: lastUsedInFight), forKey: .lastUsedInFight)
-        }
-        
+        try container.encodeIfPresent(lastUsedInFight.map { Timestamp(date: $0) }, forKey: .lastUsedInFight)
         try container.encode(isActive, forKey: .isActive)
     }
+    
+
 }
 
 // MARK: - Image Metadata Codable Extensions

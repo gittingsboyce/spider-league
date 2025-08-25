@@ -52,6 +52,7 @@
 		4CFFD6192E5CE0E500E914E3 /* ServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFFD6132E5CE0E500E914E3 /* ServiceContainer.swift */; };
 		4CFFD61A2E5CE0E500E914E3 /* SpidersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFFD6142E5CE0E500E914E3 /* SpidersViewModel.swift */; };
 		4CFFD61B2E5CE0E500E914E3 /* ChallengesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFFD6102E5CE0E500E914E3 /* ChallengesViewModel.swift */; };
+		4CFFD6352E5CEF3C00E914E3 /* SpiderRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFFD6342E5CEF3C00E914E3 /* SpiderRegistrationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +95,7 @@
 		4CFFD6122E5CE0E500E914E3 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		4CFFD6132E5CE0E500E914E3 /* ServiceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceContainer.swift; sourceTree = "<group>"; };
 		4CFFD6142E5CE0E500E914E3 /* SpidersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpidersViewModel.swift; sourceTree = "<group>"; };
+		4CFFD6342E5CEF3C00E914E3 /* SpiderRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiderRegistrationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -169,6 +171,7 @@
 		1410E3C729978161005E4FBF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4CFFD6342E5CEF3C00E914E3 /* SpiderRegistrationView.swift */,
 				4CFFD60D2E5CE0D200E914E3 /* ChallengesView.swift */,
 				4CFFD5F62E5CDF0D00E914E3 /* SpidersView.swift */,
 				4CFFD5F42E5CDF0500E914E3 /* ProfileView.swift */,
@@ -336,6 +339,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CFFD6352E5CEF3C00E914E3 /* SpiderRegistrationView.swift in Sources */,
 				1410E3F129978F97005E4FBF /* SocialLogins.swift in Sources */,
 				147A32762D7BE9A200DD45A5 /* SignInState.swift in Sources */,
 				1410E3CD299781C7005E4FBF /* AuthenticationViewModel.swift in Sources */,

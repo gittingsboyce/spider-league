@@ -303,9 +303,11 @@ extension SpiderRepository {
             let activeSpiders = userSpiders.filter { $0.isActive }.count
             
             let averageDeadliness = userSpiders.isEmpty ? 0.0 : 
-                userSpiders.reduce(0.0) { $0 + $1.deadlinessScore } / Double(userSpiders.count)
+                userSpiders.reduce(0.0) { $0 + ($1.deadlinessScore ?? 0.0) } / Double(userSpiders.count)
             
-            let strongestSpider = userSpiders.max { $0.deadlinessScore < $1.deadlinessScore }
+            let strongestSpider = userSpiders.compactMap { $0.deadlinessScore }.max().flatMap { maxScore in
+                userSpiders.first { ($0.deadlinessScore ?? 0.0) == maxScore }
+            }
             
             return (totalSpiders: totalSpiders, activeSpiders: activeSpiders, averageDeadliness: averageDeadliness, strongestSpider: strongestSpider)
         } catch {

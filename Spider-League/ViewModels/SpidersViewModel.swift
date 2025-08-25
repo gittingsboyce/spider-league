@@ -28,7 +28,7 @@ class SpidersViewModel: ObservableObject {
     
     var averageDeadlinessScore: Double {
         guard !userSpiders.isEmpty else { return 0.0 }
-        let total = userSpiders.reduce(0.0) { $0 + $1.deadlinessScore }
+        let total = userSpiders.reduce(0.0) { $0 + ($1.deadlinessScore ?? 0.0) }
         return total / Double(userSpiders.count)
     }
     
@@ -132,9 +132,9 @@ class SpidersViewModel: ObservableObject {
     
     /// Get spider statistics
     func getSpiderStatistics() -> SpiderStatistics {
-        let totalScore = userSpiders.reduce(0.0) { $0 + $1.deadlinessScore }
-        let highestScore = userSpiders.map { $0.deadlinessScore }.max() ?? 0.0
-        let lowestScore = userSpiders.map { $0.deadlinessScore }.min() ?? 0.0
+        let totalScore = userSpiders.reduce(0.0) { $0 + ($1.deadlinessScore ?? 0.0) }
+        let highestScore = userSpiders.compactMap { $0.deadlinessScore }.max() ?? 0.0
+        let lowestScore = userSpiders.compactMap { $0.deadlinessScore }.min() ?? 0.0
         
         return SpiderStatistics(
             totalSpiders: totalSpiders,
