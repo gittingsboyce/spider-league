@@ -6,10 +6,15 @@ struct SpiderRegistrationView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var imagePicker = ImagePicker()
     
+    // Services
+    private let serviceContainer = ServiceContainer.shared
+    
     // Form state
     @State private var spiderName = ""
     @State private var spiderDescription = ""
     @State private var showingImageSourceAlert = false
+    @State private var isUploading = false
+    @State private var errorMessage = ""
 
     // Callback for when spider is created
     let onSpiderCreated: (Spider) -> Void
@@ -78,10 +83,15 @@ struct SpiderRegistrationView: View {
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Save") {
-                        createSpider()
+                    Button(action: createSpider) {
+                        if isUploading {
+                            ProgressView()
+                                .scaleEffect(0.8)
+                        } else {
+                            Text("Save")
+                        }
                     }
-                    .disabled(spiderName.isEmpty || imagePicker.selectedImage == nil)
+                    .disabled(spiderName.isEmpty || imagePicker.selectedImage == nil || isUploading)
                 }
             }
             .alert("Add Photo", isPresented: $showingImageSourceAlert) {
@@ -98,37 +108,96 @@ struct SpiderRegistrationView: View {
             .sheet(isPresented: $imagePicker.isImagePickerPresented) {
                 ImagePickerSheet(imagePicker: imagePicker)
             }
+            .alert("Error", isPresented: .constant(!errorMessage.isEmpty)) {
+                Button("OK") {
+                    errorMessage = ""
+                }
+            } message: {
+                Text(errorMessage)
+            }
         }
     }
     
     // MARK: - Private Methods
     
     private func createSpider() {
-        // Create a simple spider for now
-        let spider = Spider(
-            id: UUID().uuidString,
-            userId: getCurrentUserId(),
-            name: spiderName,
-            description: spiderDescription.isEmpty ? nil : spiderDescription,
-            imageUrl: "", // Placeholder
-            imageMetadata: ImageMetadata(width: 0, height: 0, fileSize: 0),
-            geminiAnalysis: nil,
-            isActive: true,
-            lastUsed: nil,
-            createdAt: Date()
-        )
-        
-        // Call callback
-        onSpiderCreated(spider)
-        
-        // Dismiss view
-        dismiss()
+        Task {
+            do {
+                // Show loading state
+                await MainActor.run {
+                    isUploading = true
+                }
+                
+                guard let selectedImage = imagePicker.selectedImage else {
+                    await MainActor.run {
+                        isUploading = false
+                        errorMessage = "No image selected"
+                    }
+                    return
+                }
+                
+                // Upload image to Firebase Storage
+                let imageUploadService = ImageUploadService()
+                let imageUrl = try await imageUploadService.uploadSpiderImage(
+                    selectedImage,
+                    spiderId: UUID().uuidString,
+                    quality: 0.8
+                )
+                
+                // Create image metadata
+                let imageMetadata = ImageMetadata(
+                    width: Int(selectedImage.size.width),
+                    height: Int(selectedImage.size.height),
+                    fileSize: Int(imageUploadService.getImageSizeInMB(selectedImage) * 1024 * 1024)
+                )
+                
+                // Get current user ID
+                guard let userId = await getCurrentUserId() else {
+                    await MainActor.run {
+                        isUploading = false
+                        errorMessage = "Failed to get current user"
+                    }
+                    return
+                }
+                
+                // Create spider with real image data
+                let spider = Spider(
+                    id: UUID().uuidString,
+                    userId: userId,
+                    name: spiderName,
+                    description: spiderDescription.isEmpty ? nil : spiderDescription,
+                    imageUrl: imageUrl,
+                    imageMetadata: imageMetadata,
+                    geminiAnalysis: nil,
+                    isActive: true,
+                    lastUsed: nil,
+                    createdAt: Date()
+                )
+                
+                // Call callback on main thread
+                await MainActor.run {
+                    onSpiderCreated(spider)
+                    isUploading = false
+                    dismiss()
+                }
+                
+            } catch {
+                await MainActor.run {
+                    isUploading = false
+                    errorMessage = "Failed to upload image: \(error.localizedDescription)"
+                }
+            }
+        }
     }
     
-    private func getCurrentUserId() -> String {
-        // TODO: Get from authentication service
-        // For now, return a placeholder
-        return "current_user_id"
+    private func getCurrentUserId() async -> String? {
+        do {
+            let currentUser = try await serviceContainer.userRepository.getCurrentUser()
+            return currentUser?.id
+        } catch {
+            print("Failed to get current user: \(error)")
+            return nil
+        }
     }
 }
 

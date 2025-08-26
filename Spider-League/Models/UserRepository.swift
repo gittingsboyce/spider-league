@@ -1,5 +1,6 @@
 import Foundation
 import FirebaseFirestore
+import FirebaseAuth
 import Combine
 
 // MARK: - User Repository
@@ -104,9 +105,38 @@ extension UserRepository {
     
     // MARK: - Get Current User (from Firestore)
     func getCurrentUser() async throws -> SpiderLeagueUser? {
-        // TODO: Get current user ID from AuthRepository
-        // For now, return nil - this will be implemented when we connect auth
-        return nil
+        // Get current user ID from Firebase Auth
+        guard let currentUser = Auth.auth().currentUser else {
+            print("DEBUG: No current user in Firebase Auth")
+            return nil
+        }
+        
+        print("DEBUG: Current user UID: \(currentUser.uid)")
+        print("DEBUG: Current user email: \(currentUser.email ?? "no email")")
+        
+        // Try to get the user document from Firestore
+        do {
+            let user = try await getUser(id: currentUser.uid)
+            if user == nil {
+                print("DEBUG: User document not found in Firestore, creating new user")
+                // Create a new user document if it doesn't exist
+                let newUser = SpiderLeagueUser(
+                    id: currentUser.uid,
+                    email: currentUser.email ?? "",
+                    fightName: currentUser.displayName ?? "Fighter",
+                    town: "Unknown"
+                )
+                
+                let createdUser = try await createUser(newUser)
+                print("DEBUG: Created new user: \(createdUser.fightName)")
+                return createdUser
+            }
+            print("DEBUG: Found existing user: \(user?.fightName ?? "unknown")")
+            return user
+        } catch {
+            print("DEBUG: Error getting/creating user: \(error)")
+            throw error
+        }
     }
     
     // MARK: - Get Ready to Fight Users in Town

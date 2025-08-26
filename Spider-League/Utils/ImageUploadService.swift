@@ -51,10 +51,22 @@ class ImageUploadService: ObservableObject {
                 }
             }
             
-            // Wait for upload to complete
-            try await uploadTask
+            // Wait for upload to complete using a continuation
+            try await withCheckedThrowingContinuation { continuation in
+                uploadTask.observe(.success) { _ in
+                    continuation.resume()
+                }
+                
+                uploadTask.observe(.failure) { snapshot in
+                    if let error = snapshot.error {
+                        continuation.resume(throwing: error)
+                    } else {
+                        continuation.resume(throwing: ImageUploadError.uploadFailed)
+                    }
+                }
+            }
             
-            // Get download URL
+            // Get download URL after upload is complete
             let downloadURL = try await imageRef.downloadURL()
             
             await MainActor.run {
@@ -127,6 +139,7 @@ enum ImageUploadError: LocalizedError {
     case imageConversionFailed
     case invalidImageUrl
     case deletionFailed(Error)
+    case uploadFailed
     
     var errorDescription: String? {
         switch self {
@@ -136,6 +149,8 @@ enum ImageUploadError: LocalizedError {
             return "Invalid image URL"
         case .deletionFailed(let error):
             return "Failed to delete image: \(error.localizedDescription)"
+        case .uploadFailed:
+            return "Failed to upload image to storage"
         }
     }
 }

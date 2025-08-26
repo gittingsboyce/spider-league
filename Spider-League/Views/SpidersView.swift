@@ -164,8 +164,18 @@ struct SpidersView: View {
         isLoading = true
         
         do {
+            // Get current user ID
+            guard let userId = await getCurrentUserId() else {
+                print("Failed to get current user ID")
+                await MainActor.run {
+                    self.userSpiders = []
+                    self.isLoading = false
+                }
+                return
+            }
+            
             // Load spiders from Firebase
-            let spiders = try await serviceContainer.spiderRepository.getUserSpiders(userId: getCurrentUserId())
+            let spiders = try await serviceContainer.spiderRepository.getUserSpiders(userId: userId)
             
             await MainActor.run {
                 self.userSpiders = spiders
@@ -200,10 +210,14 @@ struct SpidersView: View {
     
     // MARK: - Private Methods
     
-    private func getCurrentUserId() -> String {
-        // TODO: Get from authentication service
-        // For now, return a placeholder
-        return "current_user_id"
+    private func getCurrentUserId() async -> String? {
+        do {
+            let currentUser = try await serviceContainer.userRepository.getCurrentUser()
+            return currentUser?.id
+        } catch {
+            print("Failed to get current user: \(error)")
+            return nil
+        }
     }
 }
 
